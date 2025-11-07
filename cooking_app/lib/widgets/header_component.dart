@@ -1,10 +1,12 @@
-import 'package:cooking_app/resources/app_icons.dart';
+import 'package:cooking_app/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../resources/colors.dart';
 
 class HeaderComponent extends StatelessWidget {
-  const HeaderComponent({super.key});
+  final User user;
+
+  const HeaderComponent({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class HeaderComponent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hello Jega',
+                    'Hello ${user.name}',
                     style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -28,7 +30,7 @@ class HeaderComponent extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'What are you cooking today?',
+                    user.greeting,
                     style: GoogleFonts.poppins(
                       fontSize: 11,
                       fontWeight: FontWeight.w400,
@@ -44,8 +46,8 @@ class HeaderComponent extends StatelessWidget {
                   height: 40,
                   color: AppColors.secondary40,
                   child: Center(
-                    child: Image.asset(
-                      AppIcons.avatar,
+                    child: Image.network(
+                      user.profileImage,
                       width: 40,
                       height: 40,
                       fit: BoxFit.contain,

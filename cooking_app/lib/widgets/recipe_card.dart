@@ -23,7 +23,7 @@ class _ImageWithRating extends StatelessWidget {
           width: diameter,
           height: diameter,
           decoration: BoxDecoration(shape: BoxShape.circle),
-          child: ClipOval(child: Image.asset(imageUrl, fit: BoxFit.cover)),
+          child: ClipOval(child: Image.network(imageUrl, fit: BoxFit.cover)),
         ),
         Positioned(
           bottom: 75,

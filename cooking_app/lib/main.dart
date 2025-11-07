@@ -1,5 +1,7 @@
+import 'package:cooking_app/controllers/recipe_controller.dart';
 import 'package:flutter/material.dart';
-import '../pages/main_page.dart';
+import 'package:get/get.dart';
+import 'pages/main_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,6 +12,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MainPage());
+    Get.put(RecipeController());
+    return GetMaterialApp(home: MainPage());
   }
 }

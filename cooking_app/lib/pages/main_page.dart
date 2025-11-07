@@ -1,9 +1,11 @@
-import 'package:cooking_app/resources/app_strings.dart';
+import 'package:cooking_app/controllers/recipe_controller.dart';
+import 'package:cooking_app/models/recipe.dart';
 import 'package:cooking_app/widgets/bottom_slider.dart';
 import 'package:cooking_app/widgets/recipe_card_showcase.dart';
 import 'package:cooking_app/widgets/recipe_filter_bar.dart';
 import 'package:cooking_app/widgets/searchbar_component.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../widgets/header_component.dart';
 import '../resources/colors.dart';
 
@@ -12,46 +14,49 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RecipeController controller = Get.find();
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HeaderComponent(),
-            SearchBarComponent(),
-            SizedBox(height: 15),
-            RecipeFilterBar(
-              categories: [
-                AppStrings.filterAll,
-                AppStrings.filterIndian,
-                AppStrings.filterItalian,
-                AppStrings.filterAsian,
-                AppStrings.filterChinese,
-                AppStrings.filterFruit,
-                AppStrings.filterVegetables,
-                AppStrings.filterProtein,
-                AppStrings.filterCereal,
-                AppStrings.filterLocalDishes,
-              ],
-            ),
-            SizedBox(height: 25),
-            RecipeCardShowcase(count: 5),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
-              child: Text(
-                'New Recipes',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.black,
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (controller.recipeData.value == null) {
+            return Center(child: Text('No data available'));
+          }
+
+          final AppData data = controller.recipeData.value!.list;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HeaderComponent(user: data.user),
+              SearchBarComponent(placeholder: data.filters.searchPlaceholder),
+              SizedBox(height: 15),
+              RecipeFilterBar(
+                categories: data.filters.categories.map((c) => c.name).toList(),
+              ),
+              SizedBox(height: 25),
+              RecipeCardShowcase(recipes: data.recipes),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
+                child: Text(
+                  'New Recipes',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.black,
+                  ),
                 ),
               ),
-            ),
-            BottomSlider(),
-          ],
-        ),
+              BottomSlider(newRecipes: data.newRecipes),
+            ],
+          );
+        }),
       ),
     );
   }

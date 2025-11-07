@@ -5,8 +5,13 @@ import 'package:flutter_svg/svg.dart';
 
 class SearchBarComponent extends StatelessWidget {
   final ValueChanged<String>? onChanged;
+  final String placeholder;
 
-  const SearchBarComponent({super.key, this.onChanged});
+  const SearchBarComponent({
+    super.key,
+    this.onChanged,
+    required this.placeholder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +38,8 @@ class SearchBarComponent extends StatelessWidget {
                   child: TextField(
                     onChanged: onChanged,
                     style: const TextStyle(fontSize: 11),
-                    decoration: const InputDecoration(
-                      hintText: 'Search recipe',
+                    decoration: InputDecoration(
+                      hintText: placeholder,
                       hintStyle: TextStyle(
                         color: AppColors.gray4,
                         fontSize: 11,

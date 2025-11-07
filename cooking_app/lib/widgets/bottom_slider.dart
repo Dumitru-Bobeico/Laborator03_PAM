@@ -1,71 +1,31 @@
+import 'package:cooking_app/models/recipe.dart';
 import 'package:cooking_app/resources/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BottomSlider extends StatelessWidget {
-  const BottomSlider({super.key});
+  final List<NewRecipe> newRecipes;
+
+  const BottomSlider({super.key, required this.newRecipes});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> recipes = [
-      {
-        'title': 'Steak with tomato...',
-        'author': 'James Milner',
-        'time': '20 mins',
-        'rating': 5.0,
-        'imageAsset': 'assets/images/bottom_food01.png',
-        'creatorImageAsset': 'assets/images/bottom_creator_01.png',
-      },
-      {
-        'title': 'Pilaf sweet with lamb',
-        'author': 'Laura S.',
-        'time': '35 mins',
-        'rating': 5.0,
-        'imageAsset': 'assets/images/bottom_food01.png',
-        'creatorImageAsset': 'assets/images/bottom_creator_02.png',
-      },
-      {
-        'title': 'Rice Pilaf, Broccoli',
-        'author': 'Laura S.',
-        'time': '35 mins',
-        'rating': 5.0,
-        'imageAsset': 'assets/images/bottom_food01.png',
-        'creatorImageAsset': 'assets/images/bottom_creator_02.png',
-      },
-      {
-        'title': 'Chicken meal',
-        'author': 'Laura S.',
-        'time': '35 mins',
-        'rating': 5.0,
-        'imageAsset': 'assets/images/bottom_food01.png',
-        'creatorImageAsset': 'assets/images/bottom_creator_02.png',
-      },
-      {
-        'title': 'Stir-fry chicken',
-        'author': 'Laura S.',
-        'time': '35 mins',
-        'rating': 5.0,
-        'imageAsset': 'assets/images/bottom_food01.png',
-        'creatorImageAsset': 'assets/images/bottom_creator_02.png',
-      },
-    ];
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: EdgeInsetsGeometry.only(left: 30),
+        padding: EdgeInsets.only(left: 30),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: recipes.map((recipe) {
+          children: newRecipes.map((recipe) {
             return Padding(
               padding: const EdgeInsets.only(right: 20.0, bottom: 20.0),
               child: _RecipeCard(
-                title: recipe['title'],
-                author: recipe['author'],
-                time: recipe['time'],
-                rating: recipe['rating'],
-                imageAsset: recipe['imageAsset'],
-                creatorImageAsset: recipe['creatorImageAsset'],
+                title: recipe.name,
+                author: recipe.author,
+                time: recipe.time,
+                rating: recipe.rating,
+                imageAsset: recipe.image,
+                creatorImageAsset: recipe.authorImage,
               ),
             );
           }).toList(),
@@ -137,7 +97,7 @@ class _RecipeCard extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 12,
-                      backgroundImage: AssetImage(creatorImageAsset),
+                      backgroundImage: NetworkImage(creatorImageAsset),
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -174,7 +134,7 @@ class _RecipeCard extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage(imageAsset),
+                  image: NetworkImage(imageAsset),
                   fit: BoxFit.cover,
                 ),
                 boxShadow: [
