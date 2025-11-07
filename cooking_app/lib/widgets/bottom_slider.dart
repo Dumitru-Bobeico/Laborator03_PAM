@@ -1,4 +1,4 @@
-import 'package:cooking_app/models/recipe.dart';
+import 'package:cooking_app/models/models.dart';
 import 'package:cooking_app/resources/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

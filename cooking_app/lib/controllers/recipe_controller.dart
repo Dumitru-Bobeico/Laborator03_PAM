@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../models/recipe.dart';
+import 'package:cooking_app/models/models.dart';
 
 class RecipeController extends GetxController {
   var recipeData = Rx<RecipeData?>(null);
@@ -20,7 +20,7 @@ class RecipeController extends GetxController {
       final data = await json.decode(response);
       recipeData.value = RecipeData.fromJson(data);
     } catch (e) {
-      print("Error loading recipe data: $e");
+      Get.log("Error loading recipe data: $e");
     } finally {
       isLoading.value = false;
     }

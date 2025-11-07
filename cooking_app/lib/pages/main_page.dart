@@ -1,5 +1,5 @@
 import 'package:cooking_app/controllers/recipe_controller.dart';
-import 'package:cooking_app/models/recipe.dart';
+import 'package:cooking_app/models/models.dart';
 import 'package:cooking_app/widgets/bottom_slider.dart';
 import 'package:cooking_app/widgets/recipe_card_showcase.dart';
 import 'package:cooking_app/widgets/recipe_filter_bar.dart';

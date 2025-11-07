@@ -1,4 +1,4 @@
-import 'package:cooking_app/models/recipe.dart' as model;
+import 'package:cooking_app/models/models.dart' as model;
 import 'package:cooking_app/resources/colors.dart';
 import 'package:cooking_app/widgets/back_to_menu.dart';
 import 'package:cooking_app/widgets/food_card.dart';

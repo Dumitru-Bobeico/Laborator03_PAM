@@ -1,4 +1,4 @@
-import 'package:cooking_app/models/recipe.dart' as model;
+import 'package:cooking_app/models/models.dart' as model;
 import 'package:cooking_app/resources/app_icons.dart';
 import 'package:cooking_app/resources/colors.dart';
 import 'package:flutter/material.dart';

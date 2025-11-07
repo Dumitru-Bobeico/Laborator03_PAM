@@ -24,7 +24,7 @@ class _RecipeFilterBarState extends State<RecipeFilterBar> {
           scrollDirection: Axis.horizontal,
           itemCount: widget.categories.length,
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          separatorBuilder: (_, __) => const SizedBox(width: 10),
+          separatorBuilder: (_, _) => const SizedBox(width: 10),
           itemBuilder: (context, index) {
             final category = widget.categories[index];
             final isSelected = category == selectedCategory;

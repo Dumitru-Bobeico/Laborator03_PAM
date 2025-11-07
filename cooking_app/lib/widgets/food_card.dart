@@ -88,7 +88,7 @@ class FoodCard extends StatelessWidget {
                         children: <Widget>[
                           SvgPicture.asset(
                             AppIcons.clockWatch,
-                            color: AppColors.white,
+                            colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn),
                           ),
                           const SizedBox(width: 4.0),
                           Text(
