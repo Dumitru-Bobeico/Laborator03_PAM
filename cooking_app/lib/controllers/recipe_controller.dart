@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../v2.dart';
 import '../models/recipe.dart';
 
 class RecipeController extends GetxController {
@@ -16,12 +16,9 @@ class RecipeController extends GetxController {
 
   Future<void> loadRecipeData() async {
     try {
-      final data = {
-        "list": list,
-        "details": details,
-      };
-      final String response = jsonEncode(data);
-      recipeData.value = RecipeData.fromRawJson(response);
+      final String response = await rootBundle.loadString('assets/data.json');
+      final data = await json.decode(response);
+      recipeData.value = RecipeData.fromJson(data);
     } catch (e) {
       print("Error loading recipe data: $e");
     } finally {
