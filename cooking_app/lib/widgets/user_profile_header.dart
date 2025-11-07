@@ -1,3 +1,4 @@
+import 'package:cooking_app/models/recipe.dart' as model;
 import 'package:cooking_app/resources/app_icons.dart';
 import 'package:cooking_app/resources/colors.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,9 @@ import 'package:flutter_svg/svg.dart';
 class UserProfileStaticHeader extends StatelessWidget {
   final String userName;
   final String location;
+  final String profileImageUrl;
+  final bool isFollowing;
+  final List<model.Tab> tabs;
 
   static const Color _tealActive = AppColors.primary100;
   static const Color _tealInactive = AppColors.primary80;
@@ -14,6 +18,9 @@ class UserProfileStaticHeader extends StatelessWidget {
     super.key,
     required this.userName,
     required this.location,
+    required this.profileImageUrl,
+    required this.isFollowing,
+    required this.tabs,
   });
 
   @override
@@ -23,9 +30,7 @@ class UserProfileStaticHeader extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _buildProfileRow(),
-
           const SizedBox(height: 20.0),
-
           _buildStaticToggleRow(),
         ],
       ),
@@ -37,11 +42,9 @@ class UserProfileStaticHeader extends StatelessWidget {
       children: <Widget>[
         CircleAvatar(
           radius: 20,
-          backgroundImage: AssetImage(AppIcons.followProfile),
+          backgroundImage: NetworkImage(profileImageUrl),
         ),
-
         const SizedBox(width: 15.0),
-
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +81,6 @@ class UserProfileStaticHeader extends StatelessWidget {
             ],
           ),
         ),
-
         SizedBox(
           height: 40.0,
           child: ElevatedButton(
@@ -94,9 +96,9 @@ class UserProfileStaticHeader extends StatelessWidget {
               ),
               elevation: 0,
             ),
-            child: const Text(
-              'Follow',
-              style: TextStyle(
+            child: Text(
+              isFollowing ? 'Unfollow' : 'Follow',
+              style: const TextStyle(
                 fontSize: 11,
                 color: AppColors.white,
                 fontWeight: FontWeight.w600,
@@ -111,42 +113,27 @@ class UserProfileStaticHeader extends StatelessWidget {
   Widget _buildStaticToggleRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Container(
+      children: tabs.map((tab) {
+        return Container(
           height: 33.0,
           width: 150,
           decoration: BoxDecoration(
-            color: _tealActive,
+            color: tab.active ? _tealActive : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Center(
+          child: Center(
             child: Text(
-              'Ingredient',
+              tab.name,
               style: TextStyle(
                 fontFamily: 'Poppins',
-                color: AppColors.white,
+                color: tab.active ? AppColors.white : _tealInactive,
                 fontSize: 11.0,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
-        ),
-
-        SizedBox(
-          height: 33.0,
-          width: 150,
-          child: const Center(
-            child: Text(
-              'Procedure',
-              style: TextStyle(
-                color: _tealInactive,
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ],
+        );
+      }).toList(),
     );
   }
 }

@@ -1,8 +1,11 @@
+import 'package:cooking_app/controllers/recipe_controller.dart';
+import 'package:cooking_app/models/recipe.dart' as model;
 import 'package:cooking_app/pages/second_page.dart';
 import 'package:cooking_app/resources/app_icons.dart';
 import 'package:cooking_app/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class _ImageWithRating extends StatelessWidget {
   final double diameter;
@@ -57,21 +60,16 @@ class _ImageWithRating extends StatelessWidget {
 }
 
 class RecipeCard extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final String time;
-  final double rating;
+  final model.Recipe recipe;
 
   const RecipeCard({
     super.key,
-    required this.title,
-    required this.imageUrl,
-    required this.time,
-    required this.rating,
+    required this.recipe,
   });
 
   @override
   Widget build(BuildContext context) {
+    final RecipeController controller = Get.find();
     const double cardWidth = 150.0;
     const double imageDiameter = 110.0;
 
@@ -80,7 +78,9 @@ class RecipeCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const SecondPage()),
+          MaterialPageRoute(
+              builder: (context) =>
+                  SecondPage(data: controller.recipeData.value!.details)),
         );
       },
       child: SizedBox(
@@ -111,7 +111,7 @@ class RecipeCard extends StatelessWidget {
                   children: [
                     SizedBox(height: imageDiameter / 2),
                     Text(
-                      title,
+                      recipe.name,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: 'Poppins',
@@ -135,7 +135,7 @@ class RecipeCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              time,
+                              recipe.time,
                               style: const TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 11,
@@ -170,8 +170,8 @@ class RecipeCard extends StatelessWidget {
             ),
             _ImageWithRating(
               diameter: imageDiameter,
-              imageUrl: imageUrl,
-              rating: rating,
+              imageUrl: recipe.image,
+              rating: recipe.rating,
             ),
           ],
         ),

@@ -34,7 +34,7 @@ class Ingredient extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: ClipRRect(
-              child: Image.asset(imageUrl, fit: BoxFit.scaleDown),
+              child: Image.network(imageUrl, fit: BoxFit.scaleDown),
             ),
           ),
           SizedBox(width: 25),

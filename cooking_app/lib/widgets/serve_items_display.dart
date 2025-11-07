@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ServeAndItemsDisplay extends StatelessWidget {
-  const ServeAndItemsDisplay({super.key});
+  final String serves;
+  final String items;
+
+  const ServeAndItemsDisplay({super.key, required this.serves, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,9 @@ class ServeAndItemsDisplay extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
               const SizedBox(width: 8.0),
-              const Text(
-                '1 serve',
-                style: TextStyle(
+              Text(
+                serves,
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   color: Colors.grey,
                   fontSize: 11,
@@ -32,10 +35,9 @@ class ServeAndItemsDisplay extends StatelessWidget {
               ),
             ],
           ),
-
-          const Text(
-            '10 Items',
-            style: TextStyle(
+          Text(
+            items,
+            style: const TextStyle(
               fontFamily: 'Poppins',
               color: Colors.grey,
               fontSize: 11,

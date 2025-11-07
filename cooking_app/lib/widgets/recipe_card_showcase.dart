@@ -1,9 +1,9 @@
-import 'package:cooking_app/models/recipe.dart';
+import 'package:cooking_app/models/recipe.dart' as model;
 import 'package:flutter/material.dart';
 import 'recipe_card.dart';
 
 class RecipeCardShowcase extends StatelessWidget {
-  final List<Recipe> recipes;
+  final List<model.Recipe> recipes;
 
   const RecipeCardShowcase({super.key, required this.recipes});
 
@@ -17,10 +17,7 @@ class RecipeCardShowcase extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: RecipeCard(
-              title: recipe.name,
-              imageUrl: recipe.image,
-              time: recipe.time,
-              rating: recipe.rating,
+              recipe: recipe,
             ),
           );
         }).toList(),

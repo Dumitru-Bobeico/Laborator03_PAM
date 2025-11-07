@@ -7,12 +7,14 @@ class FoodCard extends StatelessWidget {
   final String imageUrl;
   final double rating;
   final int timeInMinutes;
+  final bool isBookmarked;
 
   const FoodCard({
     super.key,
     this.imageUrl = AppIcons.carouselBurger,
     this.rating = 4.0,
     this.timeInMinutes = 20,
+    this.isBookmarked = false,
   });
 
   @override
@@ -29,7 +31,7 @@ class FoodCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Image.asset(imageUrl, fit: BoxFit.cover),
+              Image.network(imageUrl, fit: BoxFit.cover),
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -109,7 +111,7 @@ class FoodCard extends StatelessWidget {
                       ),
                       child: IconButton(
                         icon: SvgPicture.asset(
-                          AppIcons.bookmarkIcon,
+                          isBookmarked ? AppIcons.bookmarkIcon : AppIcons.bookmarkGrayIcon,
                           width: 16,
                           height: 16,
                           fit: BoxFit.contain,
